@@ -5,8 +5,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y nginx php-fpm php-curl php-mys
 RUN sed -i -e 's/try_files/#try_files/g' /etc/nginx/sites-enabled/default
 RUN sed -i -E '/^[[:space:]]+location \/ \{/a \\t\ttry_files $uri $uri\/ \/index.php?$query_string;' /etc/nginx/sites-enabled/default
 RUN sed -i -E '/^[[:space:]]+server_name/a \\tinclude /etc/nginx/php-fpm.conf;' /etc/nginx/sites-enabled/default
-RUN composer global require laravel/installer
 RUN composer global require hirak/prestissimo
+RUN composer global require laravel/installer
 ENV PATH "$PATH:/root/.composer/vendor/bin"
 COPY entrypoint.sh /
 RUN unlink /etc/nginx/sites-enabled/default
